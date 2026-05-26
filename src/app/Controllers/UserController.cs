@@ -364,11 +364,6 @@ namespace LeaderboardApp.Controllers
         {
             try
             {
-                if (model == null || model.ActivityId <= 0)
-                {
-                    return BadRequest(new { success = false, message = "Invalid activity data." });
-                }
-
                 // Get the logged-in user's ParticipantId
                 var email = User.FindFirstValue(ClaimTypes.Email)
                     ?? User.FindFirstValue("preferred_username")
@@ -385,6 +380,11 @@ namespace LeaderboardApp.Controllers
                 {
                     _logger.LogWarning("Participant not found for email {Email} during ClickLink action", email);
                     return Unauthorized(new { success = false, message = "User profile not found." });
+                }
+
+                if (model == null || model.ActivityId <= 0)
+                {
+                    return BadRequest(new { success = false, message = "Invalid activity data." });
                 }
 
                 var participantId = participant.Participantid;
