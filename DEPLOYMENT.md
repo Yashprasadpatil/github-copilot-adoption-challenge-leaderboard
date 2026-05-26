@@ -123,8 +123,8 @@ You should see the three roles listed for your App Service managed identity. Rep
 > ```powershell
 > pwsh ./src/infra/scripts/grant-sql-managed-identity-roles.ps1
 > ```
->
-> This script performs the following actions:
+
+#### This script performs the following actions:
 
 - Connects to the target Azure SQL Database server and specified database.
 - Creates a database user for the application's Managed Identity from the external provider.
