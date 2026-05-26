@@ -124,7 +124,14 @@ You should see the three roles listed for your App Service managed identity. Rep
 > pwsh ./src/infra/scripts/grant-sql-managed-identity-roles.ps1
 > ```
 >
-> After the script completes, re-run the verification query above in Query Editor to confirm the roles are now assigned.
+> This script performs the following actions:
+
+- Connects to the target Azure SQL Database server and specified database.
+- Creates a database user for the application's Managed Identity from the external provider.
+- Assigns the required database roles: `db_datareader`, `db_datawriter`, and `db_ddladmin`.
+- Restarts the associated application service to apply the changes.
+
+After the script completes, re-run the verification query above in Query Editor to confirm the roles are now assigned.
 
 #### What These Permissions Do
 
