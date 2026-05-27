@@ -124,16 +124,7 @@ You should see the three roles listed for your App Service managed identity. Rep
 > ```
 >
 > After the script completes, re-run the verification query above in Query Editor to confirm the roles are now assigned.
-
-
-
 ---
-
-> **⚠️ If you do NOT see the three roles**, run the following script to connect to leaderboardDB and grant the managed identity access:
->
-> ```powershell
-> pwsh ./src/infra/scripts/grant-sql-managed-identity-roles.ps1
-> ```
 
 #### This script performs the following actions:
 
