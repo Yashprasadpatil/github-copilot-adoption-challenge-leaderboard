@@ -113,10 +113,9 @@ JOIN sys.database_principals r ON rm.role_principal_id = r.principal_id
 JOIN sys.database_principals p ON rm.member_principal_id = p.principal_id
 WHERE p.name = '<web_app_name>';
 
-
+```
 You should see the three roles listed for your App Service managed identity. Replace `<web_app_name>` with the value of `WEB_APP_NAME` from `azd env get-values`.
 
-```
 > **⚠️ If you do NOT see the three roles**, run the following script to connect to leaderboardDB and grant the managed identity access:
 >
 > ```powershell
