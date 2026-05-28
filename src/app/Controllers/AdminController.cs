@@ -170,8 +170,37 @@ namespace LeaderboardApp.Controllers
             if (RequireAdmin() is { } forbidden) return forbidden;
             if (RequireNotStarted("Teams") is { } locked) return locked;
 
+            // DEBUG: Log raw form values
+            _logger.LogWarning("RAW FORM DATA: Name='{Name}', Tagline='{Tagline}', Icon='{Icon}', GitHubSlug='{Slug}'",
+                Request.Form["Name"].ToString(), Request.Form["Tagline"].ToString(),
+                Request.Form["Icon"].ToString(), Request.Form["GitHubSlug"].ToString());
+            _logger.LogWarning("BOUND MODEL: Name='{Name}', Tagline='{Tagline}'", team.Name, team.Tagline);
+
+            // Convert empty Icon to null so [Url] validation passes
+            if (string.IsNullOrWhiteSpace(team.Icon))
+            {
+                team.Icon = null;
+                ModelState.Remove("Icon");
+            }
+
+            // Convert empty GitHubSlug to null
+            if (string.IsNullOrWhiteSpace(team.GitHubSlug))
+            {
+                team.GitHubSlug = null;
+                ModelState.Remove("GitHubSlug");
+            }
+
             if (!ModelState.IsValid)
+            {
+                foreach (var kvp in ModelState)
+                {
+                    foreach (var error in kvp.Value.Errors)
+                    {
+                        _logger.LogWarning("ModelState error for '{Key}': {Error}", kvp.Key, error.ErrorMessage);
+                    }
+                }
                 return View(team);
+            }
 
             try
             {
