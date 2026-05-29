@@ -135,7 +135,6 @@ namespace LeaderboardApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateProfile([FromBody] Participant model)
         {
             try
